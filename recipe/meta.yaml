@@ -1,5 +1,5 @@
 {% set name = "qh3" %}
-{% set version = "1.0.7" %}
+{% set version = "1.0.8" %}
 
 package:
   name: {{ name|lower }}
@@ -7,15 +7,15 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/qh3-{{ version }}.tar.gz
-  sha256: eb527d8317746209509b9c575527577cdc9b3cfb0f49294fc1cd109b0570362c
+  sha256: 79b40f3064baa114efc839db32ee41623c8bc5f19770203265bba64018903a20
 
 build:
-  skip: True  # [py<37]
+  skip: true  # [py<37]
   script:
     - export OPENSSL_DIR=$PREFIX  # [osx]
     - export AWS_LC_SYS_CMAKE_BUILDER=1
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
