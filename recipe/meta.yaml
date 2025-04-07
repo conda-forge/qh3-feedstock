@@ -1,5 +1,5 @@
 {% set name = "qh3" %}
-{% set version = "1.4.2" %}
+{% set version = "1.4.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qh3-{{ version }}.tar.gz
-  sha256: d5ac3e8e3f66ff88819205dbc67e6f771cbb80529325ca9f3bc03fa00c5c83aa
+  sha256: abb6fcd1cbee42aa382060052cc294fd3de0f10fac38a69a90239c58519a8eab
 
 build:
   skip: true  # [py<37]
