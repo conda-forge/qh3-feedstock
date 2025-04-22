@@ -15,7 +15,7 @@ build:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - export OPENSSL_DIR=$PREFIX  # [osx]
     - export AWS_LC_SYS_CMAKE_BUILDER=1
-    - export CMAKE_C_COMPILER=gcc  # [not win]
+    - export CMAKE_C_COMPILER=${CC}  # [not win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
