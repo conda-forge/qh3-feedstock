@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qh3-{{ version }}.tar.gz
   sha256: 3d2e1616023286373ab40a276cbf0b8960e6bda640bca0569495dad57775f6b8
+  patches:
+    - 0001-Patch-aws-lc-sys.patch
 
 build:
   skip: true  # [py<37]
@@ -15,7 +17,7 @@ build:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - export OPENSSL_DIR=$PREFIX  # [osx]
     - export AWS_LC_SYS_CMAKE_BUILDER=1
-    - export CMAKE_C_COMPILER=${CC}  # [not win]
+    - cargo patch  # [unix]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
@@ -32,6 +34,7 @@ requirements:
     - make
     - nasm  # [win]
     - cargo-bundle-licenses
+    - cargo-patch  # [unix]
   host:
     - python
     - maturin >=1.2,<2.0
