@@ -1,5 +1,5 @@
 {% set name = "qh3" %}
-{% set version = "1.4.5" %}
+{% set version = "1.5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,14 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qh3-{{ version }}.tar.gz
-  sha256: 62150b050b3378827554e34916b8e8088cd676e974c9c5c02eed4c5c5472143c
+  sha256: 3d2e1616023286373ab40a276cbf0b8960e6bda640bca0569495dad57775f6b8
+  patches:
+    - 0001-Patch-aws-lc-sys.patch  # [unix]
 
 build:
   skip: true  # [py<37]
   script:
+    - cargo patch  # [unix]
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - export OPENSSL_DIR=$PREFIX  # [osx]
     - export AWS_LC_SYS_CMAKE_BUILDER=1
@@ -20,6 +23,9 @@ build:
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - maturin >=1.2,<2.0                     # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
@@ -28,6 +34,7 @@ requirements:
     - make
     - nasm  # [win]
     - cargo-bundle-licenses
+    - cargo-patch  # [unix]
   host:
     - python
     - maturin >=1.2,<2.0
