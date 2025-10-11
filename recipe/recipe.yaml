@@ -1,0 +1,72 @@
+schema_version: 1
+
+context:
+  name: qh3
+  version: 1.5.5
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/qh3-${{ version }}.tar.gz
+  sha256: fd9dd4bc435914aaaad63d5212f35d4e3f887de2814b6f9f93b94984deb52179
+
+build:
+  number: 0
+  script:
+    env:
+      OPENSSL_DIR: ${{ PREFIX }}
+      AWS_LC_SYS_CMAKE_BUILDER: '1'
+    content:
+    - if: unix
+      then: cargo patch
+    - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then:
+        - python
+        - maturin >=1.2,<2.0
+        - cross-python_${{ target_platform }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('rust') }}
+    - cmake
+    - make
+    - if: win
+      then: nasm
+    - cargo-bundle-licenses
+    - if: unix
+      then: cargo-patch
+  host:
+    - python
+    - maturin >=1.2,<2.0
+    - pip
+    - if: osx
+      then: openssl
+    - if: linux
+      then: clangdev
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - qh3
+      pip_check: true
+
+about:
+  summary: A lightway and fast implementation of QUIC and HTTP/3
+  license: BSD-3-Clause
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  homepage: https://github.com/jawah/qh3
+
+extra:
+  recipe-maintainers:
+    - thewchan
