@@ -15,12 +15,13 @@ source:
 build:
   number: 0
   script:
+    env:
+      OPENSSL_DIR: ${{ PREFIX }}
+      AWS_LC_SYS_CMAKE_BUILDER: '1'
+    content:
     - if: unix
       then: cargo patch
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-    - if: osx
-      then: export OPENSSL_DIR=$PREFIX
-    - export AWS_LC_SYS_CMAKE_BUILDER=1
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
