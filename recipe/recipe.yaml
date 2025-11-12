@@ -13,16 +13,16 @@ source:
   sha256: fd9dd4bc435914aaaad63d5212f35d4e3f887de2814b6f9f93b94984deb52179
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       OPENSSL_DIR: ${{ PREFIX }}
       AWS_LC_SYS_CMAKE_BUILDER: '1'
     content:
-    - if: unix
-      then: cargo patch
-    - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
-    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      - if: unix
+        then: cargo patch
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
