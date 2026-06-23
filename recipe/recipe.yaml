@@ -19,8 +19,6 @@ build:
       OPENSSL_DIR: $PREFIX
       AWS_LC_SYS_CMAKE_BUILDER: '1'
     content:
-      - if: unix
-        then: cargo patch
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
@@ -37,19 +35,15 @@ requirements:
     - ${{ compiler('rust') }}
     - cmake
     - make
+    - cargo-bundle-licenses
     - if: win
       then: nasm
-    - cargo-bundle-licenses
-    - if: unix
-      then: cargo-patch
   host:
     - python
     - maturin >=1.2,<2.0
     - pip
     - if: osx
       then: openssl
-    - if: linux
-      then: clangdev
   run:
     - python
 
