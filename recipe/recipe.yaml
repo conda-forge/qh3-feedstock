@@ -42,6 +42,8 @@ requirements:
     - python
     - maturin >=1.2,<2.0
     - pip
+    - if: linux
+      then: clangdev
     - if: osx
       then: openssl
   run:
