@@ -16,7 +16,7 @@ build:
   number: 2
   script:
     env:
-      OPENSSL_DIR: ${{ PREFIX }}
+      OPENSSL_DIR: $PREFIX
       AWS_LC_SYS_CMAKE_BUILDER: '1'
     content:
       - if: unix
