@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: qh3
-  version: "2.0.0"
+  version: "2.0.3"
 
 package:
   name: ${{ name|lower }}
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/qh3-${{ version }}.tar.gz
-  sha256: cc6c4ab17334b7191dcc216d22123d70411d498473758f182f807b50fe810b78
+  sha256: 546ab2d3193e37e98dfefe5834484e07d0bf531708f21e1a4e227a51510b648f
 
 build:
-  number: 1
+  number: 0
   script:
     env:
       OPENSSL_DIR: $PREFIX
