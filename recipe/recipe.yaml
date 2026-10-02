@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: qh3
-  version: "2.0.3"
+  version: "2.0.4"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/qh3-${{ version }}.tar.gz
-  sha256: 546ab2d3193e37e98dfefe5834484e07d0bf531708f21e1a4e227a51510b648f
+  sha256: 72b174c9dabfccdddf050dabc3c1b49972ed7a7564896d3db558e57376187f75
 
 build:
   number: 0
