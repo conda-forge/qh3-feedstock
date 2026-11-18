@@ -13,7 +13,7 @@ source:
   sha256: 622e3c63f2417039785f61d6af2cb26d0f0e5935ac2b84ef85a2bf76862fe6f3
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       OPENSSL_DIR: $PREFIX
